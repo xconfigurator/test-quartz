@@ -1,5 +1,21 @@
 # 定时
 
+## 澄清概念
+Spring Boot Schedule 并不是Quartz！（CRON表达式在星期上略有不同）
+
+## 开启 Spring Boot Schedule
+
+```Java
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+
+@EnableScheduling
+@Scheduled(cron = "* * * * * *")
+```
+
+## 开启 Quartz
+
+
 ## 初始化工程
 ```shell
 …or create a new repository on the command line
