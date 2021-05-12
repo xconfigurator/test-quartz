@@ -9,5 +9,4 @@ class TestQuartzApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

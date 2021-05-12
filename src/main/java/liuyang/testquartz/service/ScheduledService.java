@@ -9,6 +9,10 @@ import java.time.LocalTime;
 /**
  * @author liuyang
  * @scine 2021/3/31
+ *
+ * Spring Scheduler调用的定时任务只需两个注解配合
+ * @EnabledScheduler 注释在启动类上
+ * @Schedled 注释在方法上
  */
 @Service
 @Slf4j
@@ -31,6 +35,6 @@ public class ScheduledService {
     // @Scheduled(cron = "0,1,2,3,4 * * * * 1-6") // 周一到周六每分钟的第1，2，3，4，5秒执行 // 现象(2021/3/31): 很奇怪 0的哪一项会被连续调用两次？！ 答：上面的注解并没有被注释，同时生效了！
     @Scheduled(cron = "0/4 * * * * 1-6") // 周一到周六每4秒执行一次
     public void hello() {
-        log.info("Quartz method be invoked! at " + LocalTime.now());
+        log.info("Scheduled method be invoked! at " + LocalTime.now());
     }
 }
