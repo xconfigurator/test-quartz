@@ -37,13 +37,13 @@ public class QuartzSingleConfig {
     }
 
     @Bean
-    public Trigger helloJobTrigger01() {
+    public Trigger helloJobTrigger01(JobDetail helloJobDetail01) {
         // 每隔2秒一次
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0/2 * * * * ?");
 
         // 创建触发器
         Trigger trigger = TriggerBuilder.newTrigger()
-                .forJob(helloJobDetail01())// 关联JobDetail
+                .forJob(helloJobDetail01)// 关联JobDetail
                 .withIdentity("helloJobTrigger01", TRIGGER_GROUP_NAME)
                 .withSchedule(cronScheduleBuilder)
                 .build();
