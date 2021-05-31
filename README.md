@@ -57,14 +57,14 @@ You can initialize this repository with code from a Subversion, Mercurial, or TF
 13:47:35.187 [main] INFO org.quartz.core.QuartzScheduler - Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
 13:47:35.189 [main] INFO liuyang.testquartz.QuartzTest - scheduler.start()运行后 job1是否存在 ：true
 13:47:35.191 [DefaultQuartzScheduler_QuartzSchedulerThread] DEBUG org.quartz.core.QuartzSchedulerThread - batch acquisition of 1 triggers
-13:47:35.197 [DefaultQuartzScheduler_QuartzSchedulerThread] DEBUG org.quartz.simpl.PropertySettingJobFactory - Producing instance of Job 'LIUYANG_QUARTZ_SINGLE_JOB_GROUP_NAME_single.job1', class=liuyang.testquartz.quartz.HelloJob
+13:47:35.197 [DefaultQuartzScheduler_QuartzSchedulerThread] DEBUG org.quartz.simpl.PropertySettingJobFactory - Producing instance of Job 'LIUYANG_QUARTZ_SINGLE_JOB_GROUP_NAME_single.job1', class=liuyang.testquartz.quartz.Hello01Job
 13:47:35.204 [DefaultQuartzScheduler_QuartzSchedulerThread] DEBUG org.quartz.core.QuartzSchedulerThread - batch acquisition of 0 triggers
 13:47:35.205 [DefaultQuartzScheduler_Worker-1] DEBUG org.quartz.core.JobRunShell - Calling execute on job LIUYANG_QUARTZ_SINGLE_JOB_GROUP_NAME_single.job1
-13:47:35.258 [DefaultQuartzScheduler_Worker-1] INFO liuyang.testquartz.quartz.HelloJob - hello Quartz!  in Spring Boot ENV at 2021-05-12T13:47:35.244891700
-13:47:35.260 [DefaultQuartzScheduler_Worker-1] INFO liuyang.testquartz.quartz.HelloJob - JobDetail Group = LIUYANG_QUARTZ_SINGLE_JOB_GROUP_NAME_single
-13:47:35.260 [DefaultQuartzScheduler_Worker-1] INFO liuyang.testquartz.quartz.HelloJob - JobDetail Name = job1
-13:47:35.260 [DefaultQuartzScheduler_Worker-1] INFO liuyang.testquartz.quartz.HelloJob - Trigger Group = LIUYANG_QUARTZ_SINGLE_TRIGGER_GROUP_NAME_single
-13:47:35.261 [DefaultQuartzScheduler_Worker-1] INFO liuyang.testquartz.quartz.HelloJob - Trigger Name = trigger1
+13:47:35.258 [DefaultQuartzScheduler_Worker-1] INFO liuyang.testquartz.quartz.Hello01Job - hello Quartz!  in Spring Boot ENV at 2021-05-12T13:47:35.244891700
+13:47:35.260 [DefaultQuartzScheduler_Worker-1] INFO liuyang.testquartz.quartz.Hello01Job - JobDetail Group = LIUYANG_QUARTZ_SINGLE_JOB_GROUP_NAME_single
+13:47:35.260 [DefaultQuartzScheduler_Worker-1] INFO liuyang.testquartz.quartz.Hello01Job - JobDetail Name = job1
+13:47:35.260 [DefaultQuartzScheduler_Worker-1] INFO liuyang.testquartz.quartz.Hello01Job - Trigger Group = LIUYANG_QUARTZ_SINGLE_TRIGGER_GROUP_NAME_single
+13:47:35.261 [DefaultQuartzScheduler_Worker-1] INFO liuyang.testquartz.quartz.Hello01Job - Trigger Name = trigger1
 13:47:55.203 [main] INFO liuyang.testquartz.QuartzTest - 确定job1 已经运行晚一次后查看 job1是否存在 ：false
 
 Process finished with exit code 0
