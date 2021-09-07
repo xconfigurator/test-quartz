@@ -1,12 +1,10 @@
-package liuyang.testquartz.config;
+package liuyang.testquartz.modules.scheduler.quartz.config;
 
-import liuyang.testquartz.quartz.Hello01Job;
+import liuyang.testquartz.modules.scheduler.quartz.quartzjobbean.Hello01Job;
 import lombok.SneakyThrows;
 import org.quartz.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.quartz.SchedulerFactoryBeanCustomizer;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -25,7 +23,7 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 @Configuration
 // public class QuartzSingleConfig {
 public class QuartzSingleConfig implements SchedulerFactoryBeanCustomizer {
-    private static final String JOB_GRPU_NAME = "LIUYANG_QUARTZ_SINGLE_JOB_GROUP_NAME";
+    private static final String JOB_GROUP_NAME = "LIUYANG_QUARTZ_SINGLE_JOB_GROUP_NAME";
     private static final String TRIGGER_GROUP_NAME = "LIUYANG_QUARTZ_SINGLE_TRIGGER_GROUP_NAME";
 
     //@Autowired
@@ -34,7 +32,7 @@ public class QuartzSingleConfig implements SchedulerFactoryBeanCustomizer {
     @Bean // 疑问点：JobDetail和Trigger有没有必要使用Spring容器托管？ 答：这是文档推荐写法
     public JobDetail helloJobDetail01() {
         JobDetail jobDetail = JobBuilder.newJob(Hello01Job.class)
-                .withIdentity("helloJobDetail01", JOB_GRPU_NAME)
+                .withIdentity("helloJobDetail01", JOB_GROUP_NAME)
                 //.usingJobData("param1", "hello")
                 //.usingJobData("param2", "quartz")
                 .usingJobData("param1", "hello from JobDetail")
@@ -47,7 +45,7 @@ public class QuartzSingleConfig implements SchedulerFactoryBeanCustomizer {
     @Bean // 疑问点：JobDetail和Trigger有没有必要使用Spring容器托管？ 答；这是文档推荐写法。
     public Trigger helloJobTrigger01(JobDetail helloJobDetail01) {
         // 每隔2秒一次
-        CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0/2 * * * * ?");
+        CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0/25 * * * * ?");
 
         // 创建触发器
         Trigger trigger = TriggerBuilder.newTrigger()

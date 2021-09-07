@@ -1,4 +1,4 @@
-package liuyang.testquartz.controller;
+package liuyang.testquartz.common.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;

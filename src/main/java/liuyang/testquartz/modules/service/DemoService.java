@@ -1,4 +1,4 @@
-package liuyang.testquartz.component;
+package liuyang.testquartz.modules.service;
 
 import lombok.ToString;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ToString
-public class TestComponentInSpringEnv {
+public class DemoService {
 
     public String hey() {
         return "hello, I'am from Spring Environment!";

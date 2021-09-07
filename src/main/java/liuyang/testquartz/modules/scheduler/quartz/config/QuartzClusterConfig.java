@@ -1,4 +1,4 @@
-package liuyang.testquartz.config;
+package liuyang.testquartz.modules.scheduler.quartz.config;
 
 import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;

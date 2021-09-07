@@ -1,10 +1,9 @@
 package liuyang.testquartz;
 
-import liuyang.testquartz.component.TestComponentInSpringEnv;
+import liuyang.testquartz.modules.service.DemoService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
@@ -26,12 +25,12 @@ public class QuartzSpringEnvTest {
     private Scheduler scheduler;
 
     @Autowired
-    private TestComponentInSpringEnv testComponentInSpringEnv;
+    private DemoService demoService;
 
     @Test
     void test() {
-        System.out.println(testComponentInSpringEnv);
-        log.info(testComponentInSpringEnv.hey());
+        System.out.println(demoService);
+        log.info(demoService.hey());
     }
 
     /**

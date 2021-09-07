@@ -1,4 +1,4 @@
-package liuyang.testquartz.service;
+package liuyang.testquartz.modules.web.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;

@@ -1,6 +1,6 @@
-package liuyang.testquartz.controller;
+package liuyang.testquartz.modules.web.controller;
 
-import liuyang.testquartz.service.AsyncService;
+import liuyang.testquartz.modules.web.service.AsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

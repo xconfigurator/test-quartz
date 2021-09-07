@@ -1,15 +1,11 @@
 package liuyang.testquartz;
 
-import liuyang.testquartz.component.TestComponentInSpringEnv;
-import liuyang.testquartz.quartz.Hello01Job;
-import liuyang.testquartz.quartz.Hello02Job;
+import liuyang.testquartz.modules.scheduler.quartz.quartzjobbean.Hello02Job;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.concurrent.TimeUnit;
 

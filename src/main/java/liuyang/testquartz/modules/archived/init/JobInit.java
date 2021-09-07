@@ -1,4 +1,4 @@
-package liuyang.testquartz.component;
+package liuyang.testquartz.modules.archived.init;
 
 import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
  * @scine 2021/5/31
  */
 // @Component
+@Deprecated
 public class JobInit {
 
     @Autowired
