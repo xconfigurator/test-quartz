@@ -1,4 +1,4 @@
-package liuyang.testquartz.modules.ws.stub;
+package liuyang.testquartz.modules.service.ws.stub;
 
 import java.net.MalformedURLException;
 import java.net.URL;

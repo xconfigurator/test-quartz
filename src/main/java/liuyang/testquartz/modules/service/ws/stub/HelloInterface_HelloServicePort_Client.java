@@ -1,5 +1,5 @@
 
-package liuyang.testquartz.modules.ws.stub;
+package liuyang.testquartz.modules.service.ws.stub;
 
 /**
  * Please modify this class to meet your needs

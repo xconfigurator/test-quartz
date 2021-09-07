@@ -1,7 +1,8 @@
 # 定时
 
 ## 澄清概念
-Spring Boot Schedule 并不是Quartz！（CRON表达式在星期上略有不同）
+1. Spring Boot Schedule 并不是Quartz！（CRON表达式在星期上略有不同）
+2. Spring Schedule
 
 ## 开启 Spring Boot Schedule
 

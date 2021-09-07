@@ -1,5 +1,5 @@
 
-package liuyang.testquartz.modules.ws.stub;
+package liuyang.testquartz.modules.service.ws.stub;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

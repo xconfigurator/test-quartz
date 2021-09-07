@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableAsync // @Async
-//@EnableScheduling // @Scheduled // Quartz不需要@EnableScheduling注解
+@EnableScheduling // @Scheduled // Quartz不需要@EnableScheduling注解
 @SpringBootApplication
 public class TestQuartzApplication {
 

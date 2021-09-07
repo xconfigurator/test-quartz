@@ -1,7 +1,7 @@
 package liuyang.testquartz.modules.scheduler.quartz.quartzjobbean;
 
-import liuyang.testquartz.modules.ws.stub.HelloInterface;
-import liuyang.testquartz.modules.ws.stub.HelloServiceService;
+import liuyang.testquartz.modules.service.ws.stub.HelloInterface;
+import liuyang.testquartz.modules.service.ws.stub.HelloServiceService;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

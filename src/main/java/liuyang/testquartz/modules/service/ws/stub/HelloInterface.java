@@ -1,4 +1,4 @@
-package liuyang.testquartz.modules.ws.stub;
+package liuyang.testquartz.modules.service.ws.stub;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
