@@ -14,7 +14,7 @@ import java.time.LocalTime;
  * @EnabledScheduler 注释在启动类上
  * @Schedled 注释在方法上
  */
-@Service
+//@Service
 @Slf4j
 public class ScheduledService {
 

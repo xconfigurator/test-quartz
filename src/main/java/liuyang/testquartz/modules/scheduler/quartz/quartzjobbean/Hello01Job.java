@@ -27,11 +27,11 @@ public class Hello01Job extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         // 1. 演示获取运行时参数（传递参数参见QuartzSingleConfig）
-        // String param1 = (String) jobExecutionContext.getJobDetail().getJobDataMap().get("param1");
+        // String param1 = (String) jobExecutionContext.getJobDetail().getJobDataMap().get("param1"); // 获取来在JobDetial的传参
         // String param2 = (String) jobExecutionContext.getJobDetail().getJobDataMap().get("param2");
-        // String param2 = (String) jobExecutionContext.getTrigger().getJobDataMap().get("param2");
-        String param1 = jobExecutionContext.getMergedJobDataMap().getString("param1"); // key相同就会被覆盖
-        String param2 = jobExecutionContext.getMergedJobDataMap().getString("param2"); // key相同就会被覆盖
+        // String param2 = (String) jobExecutionContext.getTrigger().getJobDataMap().get("param2");// 获取来自Trigger的传参
+        String param1 = jobExecutionContext.getMergedJobDataMap().getString("param1"); // key相同就会被覆盖 Trigger覆盖JobDetail的
+        String param2 = jobExecutionContext.getMergedJobDataMap().getString("param2"); // key相同就会被覆盖 Trigger覆盖JobDetail的
 
         param1 = param1 == null || "".equals(param1) ? "hello Quartz! " : param1;
         param2 = param2 == null || "".equals(param2) ? "in Spring Boot ENV" : param2;
