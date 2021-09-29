@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit;
  *
  * @author liuyang
  * @scine 2021/9/27
+ *
+ * TODO check*还没有测试！！！
  */
 @Component
 @Slf4j
@@ -56,7 +58,7 @@ public class QuartzUtils {
      * @return
      */
     public boolean addOnce(String taskId, Class<? extends Job> jobClass, JobDataMap jobDataMap) {
-        return addOnce(taskId, jobClass, jobDataMap, null, null);
+        return addOnce(taskId, jobClass, null, null, jobDataMap);
     }
 
     /**
@@ -67,7 +69,7 @@ public class QuartzUtils {
      * @return
      */
     public boolean addOnce(String taskId, Class<? extends Job> jobClass, Date startTime) {
-        return addOnce(taskId, jobClass, null, startTime, null);
+        return addOnce(taskId, jobClass, startTime, null, null);
     }
 
     /**
@@ -79,7 +81,7 @@ public class QuartzUtils {
      * @return
      */
     public boolean addOnce(String taskId, Class<? extends Job> jobClass, Date startTime, JobDataMap jobDataMap) {
-        return addOnce(taskId, jobClass, jobDataMap, startTime, null);
+        return addOnce(taskId, jobClass, startTime, null, jobDataMap);
     }
 
     /**
@@ -91,7 +93,7 @@ public class QuartzUtils {
      * @return
      */
     public boolean addOnce(String taskId, Class<? extends Job> jobClass, Date startTime, Date stopTime) {
-        return addOnce(taskId, jobClass, null, startTime, stopTime);
+        return addOnce(taskId, jobClass,  startTime, stopTime, null);
     }
 
     /**
@@ -106,7 +108,7 @@ public class QuartzUtils {
      * @param stopTime
      * @return
      */
-    public boolean addOnce(String taskId, Class<? extends Job> jobClass, JobDataMap jobDataMap, Date startTime, Date stopTime) {
+    public boolean addOnce(String taskId, Class<? extends Job> jobClass, Date startTime, Date stopTime, JobDataMap jobDataMap) {
         try {
             // 1. JobDetail
             JobBuilder jobBuilder = JobBuilder.newJob(jobClass);
