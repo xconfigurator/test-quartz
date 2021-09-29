@@ -4,7 +4,6 @@ import liuyang.testquartz.common.util.DateUtil;
 import liuyang.testquartz.modules.scheduler.quartz.quartzjobbean.FooJob;
 import liuyang.testquartz.modules.scheduler.quartz.quartzjobbean.Hello01Job;
 import lombok.SneakyThrows;
-import org.apache.tomcat.jni.Local;
 import org.quartz.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.quartz.SchedulerFactoryBeanCustomizer;
@@ -13,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * 单实例最简使用配置
@@ -26,7 +24,7 @@ import java.util.Date;
  * 注1：单纯使用Spring Boot提供的 Scheduler是不需要这个配置类的
  */
 @ConditionalOnProperty(prefix = "liuyang", name = "quartz.mode", havingValue = "single")
-@Configuration
+//@Configuration
 // public class QuartzSingleConfig {
 public class QuartzSingleConfig implements SchedulerFactoryBeanCustomizer {
     private static final String JOB_GROUP_NAME = "LIUYANG_QUARTZ_SINGLE_JOB_GROUP_NAME";
@@ -68,7 +66,9 @@ public class QuartzSingleConfig implements SchedulerFactoryBeanCustomizer {
                 .forJob(fooJobDetail)// 指定要触发的对象
                 .withSchedule(simpleScheduleBuilder)
                 .startNow()
-                .endAt(DateUtil.asDate(LocalDateTime.now().plusHours(2)))
+                //.endAt(DateUtil.asDate(LocalDateTime.now().plusHours(2)))
+                .endAt(null) // 如果传入的endTime是可选项 20210923测试 ok
+                //.endAt(DateUtil.asDate(LocalDateTime.now().plusSeconds(10)))// 只执行10s
                 .build();
         return trigger;
     }
@@ -94,7 +94,7 @@ public class QuartzSingleConfig implements SchedulerFactoryBeanCustomizer {
      * 中文：https://www.w3cschool.cn/quartz_doc/quartz_doc-lwuv2d2a.html
      * @return
      */
-    @Bean
+    //@Bean
     public Trigger demoCronTrigger01(JobDetail fooJobDetail) {
         // 每4秒执行一次
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0/4 * * * * ?");

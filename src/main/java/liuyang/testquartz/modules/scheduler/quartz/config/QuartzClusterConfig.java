@@ -21,7 +21,7 @@ import java.util.concurrent.Executor;
  * @scine 2021/4/1
  */
 @ConditionalOnProperty(prefix = "liuyang", name = "quartz.mode", havingValue = "cluster")
-@Configuration
+//@Configuration
 public class QuartzClusterConfig {
 
     @Autowired

@@ -15,7 +15,7 @@ public class QuartzWSJobConfig {
     private static final String JOB_GROUP_NAME = "LIUYANG_QUARTZ_SINGLE_JOB_GROUP_NAME_WS";
     private static final String TRIGGER_GROUP_NAME = "LIUYANG_QUARTZ_SINGLE_TRIGGER_GROUP_NAME_WS";
 
-    @Bean
+    //@Bean
     public JobDetail wsJob01() {
         JobDetail jobDetail = JobBuilder.newJob(WebServiceTestJob.class)
                 .withIdentity("wsJob01", JOB_GROUP_NAME)
@@ -24,7 +24,7 @@ public class QuartzWSJobConfig {
         return jobDetail;
     }
 
-    @Bean // @Qualifier("wsJob01") // 实测不需要@Qualifier也能注册成功.加上@Qualifier也可以.
+    //@Bean // @Qualifier("wsJob01") // 实测不需要@Qualifier也能注册成功.加上@Qualifier也可以.
     public Trigger wsTrigger01(JobDetail wsJob01) {
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0/1 * * * * ?");
         Trigger trigger = TriggerBuilder.newTrigger()
