@@ -9,6 +9,9 @@ import java.util.Date;
 /**
  * @author liuyang
  * @scine 2021/9/9
+ *
+ * 说明：
+ * Quartz还提供了时间的工具类：DateBuilder，可以关注一下。
  */
 public class DateUtil {
 

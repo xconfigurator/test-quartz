@@ -35,9 +35,11 @@ public class FooJob implements Job {// 注意：虽然可以这样做，但还�
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         log.info("bar Job... FooJob 被TritterKey = {} 的触发器触发了！ ", jobExecutionContext.getTrigger().getKey());
+        /*
         log.info("bar Job... FooJob JobKey = {}", jobExecutionContext.getJobDetail().getKey());
         log.info("bar Job... IoC测试 demoService = " + demoService);
         log.info("bar Job... IoC测试 demoService.hey() = {}", demoService.hey() );
         log.info("bar Job... Param测试 JobDataMap = {}", JSON.toJSONString(jobExecutionContext.getJobDetail().getJobDataMap()));
+        */
     }
 }

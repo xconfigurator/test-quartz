@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author liuyang
  * @scine 2021/9/27
+ * @update 2021/11/16 增加misfire策略，目前的策略师错过就错过了，resume之后不执行错过的任务。
  *
  * TODO check*还没有测试！！！
  */
@@ -169,7 +170,27 @@ public class QuartzUtils {
      * @return
      */
     public boolean addPeriodic(String taskId, Class<? extends Job> jobClass, Date startTime, Date stopTime, Integer interval, TimeUnit timeUnit, JobDataMap jobDataMap) {
-        SimpleScheduleBuilder simpleScheduleBuilder = SimpleScheduleBuilder.simpleSchedule().repeatForever();
+        SimpleScheduleBuilder simpleScheduleBuilder = SimpleScheduleBuilder.simpleSchedule();
+        simpleScheduleBuilder.repeatForever();
+
+        // misfire
+        // 注：貌似在triggerBuilder。startAt且simpleScheduleBuilder.withRepeatCount之后才起效。对这种repeatForever的不起效。
+        // SimpleScheduleBuilder的misfire策略
+        // simpleScheduleBuilder.withMisfireHandlingInstructionIgnoreMisfires();// 立即把错过的都执行 然后按计划执行
+        // 1. 默认。如果不设置任何misfire策略则为默认行为。会把项目启动时间作为任务开始时间，然后正常执行（e.g. 如果指定了simpleScheduleBuilder.withRepeatCount(4)则执行4次。）。
+        // MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY
+        // 2. 立刻执行一次，把剩余的执行完。（无论错过了多少次，只补一次，再把剩余的执行完。）
+        // simpleScheduleBuilder.withMisfireHandlingInstructionFireNow();
+        // 3.
+        //simpleScheduleBuilder.withMisfireHandlingInstructionNowWithExistingCount();
+        // 4.
+        //simpleScheduleBuilder.withMisfireHandlingInstructionNowWithRemainingCount();
+        // 5.
+        //simpleScheduleBuilder.withMisfireHandlingInstructionNextWithExistingCount();
+        // 6.
+        simpleScheduleBuilder.withMisfireHandlingInstructionNextWithRemainingCount(); // 需求 错过的不要重复执行
+
+        // 间隔时间单位
         switch (timeUnit) {
             case MINUTES:
                 simpleScheduleBuilder.withIntervalInMinutes(interval);
@@ -199,6 +220,8 @@ public class QuartzUtils {
      */
     public boolean addPeriodic(String taskId, Class<? extends Job> jobClass, Date starTime, Date stopTime, String cronExpression, JobDataMap jobDataMap) {
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
+        // misfire
+        cronScheduleBuilder.withMisfireHandlingInstructionDoNothing();
         // 如果使用了CRON表达式，则默认会根据表达式一直执行。所以并不需要额外说明stopTime为空的情况。
         return addPeriodic(taskId, jobClass, starTime, stopTime, cronScheduleBuilder, jobDataMap);
     }
@@ -238,8 +261,10 @@ public class QuartzUtils {
             if (null != stopTime) {
                 triggerBuilder.endAt(stopTime);
             }
+
             triggerBuilder.withSchedule(scheduleBuilder);
             Trigger trigger = triggerBuilder.build();
+            log.debug("trigger.getMisfireInstruction() = {}", trigger.getMisfireInstruction());// 默认是0，即MISFIRE_INSTRUCTION_SMART_POLICY
 
             // 3. 注册
             scheduler.scheduleJob(jobDetail, trigger);
