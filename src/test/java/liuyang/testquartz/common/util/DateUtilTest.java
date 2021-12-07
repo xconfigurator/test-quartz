@@ -20,4 +20,12 @@ public class DateUtilTest {
         Date date = DateUtil.asDate(LocalDateTime.now().plusHours(2));
         log.info("两小时以后的时间 = {}", sdf.format(date));
     }
+
+    @Test
+    void testDateUtilsTimestamp() {
+        LocalDateTime now = LocalDateTime.now();
+        now.plusMinutes(1);
+        long time = DateUtil.asDate(now).getTime();
+        log.info("一分钟之后间戳：" + time);
+    }
 }

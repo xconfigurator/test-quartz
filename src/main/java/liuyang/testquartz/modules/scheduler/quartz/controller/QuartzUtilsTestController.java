@@ -164,6 +164,20 @@ public class QuartzUtilsTestController {
         return R.ok(REMINDER);
     }
 
+    @GetMapping("/addperiodiccronstartatwithoutstoptime")
+    public R addPeriodicCRONWithoutStopTime() {
+        String taskId = IdUtils.nextTaskId();
+        final String REMINDER = "addPeriodicCRONWithoutStopTime 测试环境为5秒之后执行（startTime）， 间隔1秒（interval）， taskId = " + taskId;
+        String cron = "0/5 * * * * ?";
+        Date startTime = DateUtil.asDate(LocalDateTime.now().plusSeconds(5));
+        Date stopTime = DateUtil.asDate(LocalDateTime.now().plusSeconds(10));
+        JobDataMap param = new JobDataMap();
+        param.put("foo", "bar");
+        quartzUtils.addPeriodic(taskId, FooJob.class, startTime, null, cron, param);
+
+        return R.ok(REMINDER);
+    }
+
     // 暂停周期任务 (Use Case)
     // 20210929 ok
     @GetMapping("/pauseperiodic/{taskId}")
@@ -197,6 +211,18 @@ public class QuartzUtilsTestController {
         log.info(REMINDER);
 
         quartzUtils.deletePeriodic(taskId);
+
+        return R.ok(REMINDER);
+    }
+
+    // 按类型删除周期任务
+    // e.g. /deleteperiodicbyjobclassname/liuyang.testquartz.modules.scheduler.quartz.quartzjobbean.FooJob
+    @GetMapping("/deleteperiodicbyjobclassname/{jobClassName}")
+    public R deletePeriodicByJobClassName(@PathVariable("jobClassName") String jobClassName) {
+        final String REMINDER = "deletePeriodicByJobClassName jobClassName = " + jobClassName;
+        log.info(REMINDER);
+
+        quartzUtils.deletePeriodicByJobClassName(jobClassName);
 
         return R.ok(REMINDER);
     }

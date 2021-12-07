@@ -23,8 +23,8 @@ import java.util.concurrent.TimeUnit;
  * @author liuyang
  * @scine 2021/9/27
  * @update 2021/11/16 增加misfire策略，目前的策略师错过就错过了，resume之后不执行错过的任务。
+ * @update 2021/12/07 增加按照job类型（jobClassName）删除job的方法。(getExistsJobClass, deleteOnceByJobClassName, deletePeriodicByJobClassName)
  *
- * TODO check*还没有测试！！！
  */
 @Component
 @Slf4j
@@ -298,6 +298,25 @@ public class QuartzUtils {
     }
 
     /**
+     * 获取相同类型（类名称，不带.class）的任务
+     * @param jobClassName
+     * @param groupMatcher
+     * @return
+     */
+    private Set<JobKey> getExistsJobClass(String jobClassName, GroupMatcher groupMatcher) {
+        if (null == jobClassName || "".equals(jobClassName.trim())) {
+            return null;
+        }
+        try {
+            Set<JobKey> jobKeys = scheduler.getJobKeys(groupMatcher);
+            return jobKeys;
+        } catch (SchedulerException e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    /**
      * 检查单次任务是否存在
      *
      * @param taskId
@@ -333,14 +352,18 @@ public class QuartzUtils {
             return false;
         }
         try {
-            Set<JobKey> jobKeys = scheduler.getJobKeys(groupMatcher);
-            for (JobKey jobKey : jobKeys) {
-                if (jobClassName.equals(scheduler.getJobDetail(jobKey).getJobClass().getName())) {
-                    return true;
+            Set<JobKey> jobKeys = getExistsJobClass(jobClassName, groupMatcher);
+            if (null == jobKeys || jobKeys.isEmpty()) {
+                return false;
+            } else {
+                for (JobKey jobKey : jobKeys) {
+                    if (jobClassName.equals(scheduler.getJobDetail(jobKey).getJobClass().getName())) {
+                        return true;
+                    }
                 }
+                return false;
             }
-            return false;
-        } catch (SchedulerException e) {
+        } catch(Exception e) {
             log.error(e.getMessage(), e);
             return false;
         }
@@ -383,9 +406,39 @@ public class QuartzUtils {
         return pause(jobKey) && delete(jobKey);
     }
 
+    /**
+     * 通过任务类型删除Job
+     * 注意：该方法会删除同种类型（相同组（groupMatcher指定）中相同的jobClassName）的所有任务
+     * @param jobClassName
+     * @return
+     */
+    public boolean deleteOnceByJobClassName(String jobClassName) {
+        Set<JobKey> jobKeys = getExistsJobClass(jobClassName, GroupMatcher.jobGroupEquals(ONCE_JOB_GROUP));
+        for (JobKey jobKey : jobKeys) {
+            pause(jobKey);
+            delete(jobKey);
+        }
+        return true;
+    }
+
     public boolean deletePeriodic(String taskId) {
         JobKey jobKey = new JobKey(taskId, PERIODIC_JOB_GROUP);
         return pause(jobKey) && delete(jobKey);
+    }
+
+    /**
+     * 通过任务类型删除Job
+     * 注意：该方法会删除同种类型（相同组（groupMatcher指定）中相同的jobClassName）的所有任务
+     * @param jobClassName
+     * @return
+     */
+    public boolean deletePeriodicByJobClassName(String jobClassName) {
+        Set<JobKey> jobKeys = getExistsJobClass(jobClassName, GroupMatcher.jobGroupEquals(PERIODIC_JOB_GROUP));
+        for (JobKey jobKey : jobKeys) {
+            pause(jobKey);
+            delete(jobKey);
+        }
+        return true;
     }
 
     // /////////////////////////////////////////////////////////////////////
