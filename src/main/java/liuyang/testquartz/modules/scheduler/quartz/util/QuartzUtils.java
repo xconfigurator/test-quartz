@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @scine 2021/9/27
  * @update 2021/11/16 增加misfire策略，目前的策略师错过就错过了，resume之后不执行错过的任务。
  * @update 2021/12/07 增加按照job类型（jobClassName）删除job的方法。(getExistsJobClass, deleteOnceByJobClassName, deletePeriodicByJobClassName)
- *
+ * @update 2022/1/20  修正getExistsJobClass重大问题。问题点：竟然没实现完。直接删了整组的任务。
  */
 @Component
 @Slf4j
@@ -304,15 +305,21 @@ public class QuartzUtils {
      * @return
      */
     private Set<JobKey> getExistsJobClass(String jobClassName, GroupMatcher groupMatcher) {
+        Set<JobKey> jobKeys = new HashSet<>();
         if (null == jobClassName || "".equals(jobClassName.trim())) {
-            return null;
+            return jobKeys;
         }
         try {
-            Set<JobKey> jobKeys = scheduler.getJobKeys(groupMatcher);
+            Set<JobKey> jobKeysGroup = scheduler.getJobKeys(groupMatcher);
+            for (JobKey jobKey : jobKeysGroup) {
+                if (jobClassName.equals(scheduler.getJobDetail(jobKey).getJobClass().getName())) {
+                    jobKeys.add(jobKey);
+                }
+            }
             return jobKeys;
         } catch (SchedulerException e) {
             log.error(e.getMessage(), e);
-            return null;
+            return jobKeys;
         }
     }
 

@@ -82,7 +82,7 @@ public class QuartzTest {
         log.info("scheduler.start()运行后 job1是否存在 ：" + scheduler.checkExists(JobKey.jobKey("job1", JOB_GROUP_NAME)));
         // scheduler.getCurrentlyExecutingJobs();
 
-        // 听一下看效果
+        // 停一下看效果
         TimeUnit.SECONDS.sleep(10);
 
         // 清理工作, 验证是否job1被自己清理掉。
